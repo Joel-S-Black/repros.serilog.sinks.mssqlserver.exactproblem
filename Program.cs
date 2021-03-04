@@ -1,7 +1,6 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Extensions.Logging;
 using System;
@@ -85,7 +84,7 @@ namespace ExactReproduction
                 });
 
 
-        private static Serilog.ILogger RebootLoggerWithDatabaseLoggingIncluded(IConfiguration configuration, Dictionary<string, string> environmentSpecificValues)
+        private static ILogger RebootLoggerWithDatabaseLoggingIncluded(IConfiguration configuration, Dictionary<string, string> environmentSpecificValues)
         {
             throw new NotImplementedException();
         }
