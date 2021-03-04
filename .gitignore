@@ -6,3 +6,5 @@
 /bin/Debug/netcoreapp3.1
 /obj
 /ExactReproduction.csproj.user
+/.vs/ExactReproduction/DesignTimeBuild/.dtbcache.v2
+/.vs/ExactReproduction/v16/TestStore/0
