@@ -126,6 +126,22 @@ namespace ExactReproduction
             columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventId", AllowNull = false, DataType = SqlDbType.Int, PropertyName = "LegacyEnventTypeId" });
 
             //      Add & configure 'title'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "title", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 100, PropertyName = "MessageTemplate" });
+
+            //      Add & configure 'category'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "category", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyEventCategoryName" });
+
+            //      Add & configure 'message'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "message", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 1000, PropertyName = "Message" });
+
+            //      Add & configure 'exceptionText'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = true, DataType = SqlDbType.VarChar, PropertyName = "Properties" });
+
+            //      Add & configure 'computer'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "MachineName" });
+
+            //      Add & configure 'registeredAppId'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyRegisteredAppId" });
 
             return new LoggerConfiguration()
                 .ReadFrom.Configuration(originalConfig)
