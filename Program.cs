@@ -92,7 +92,7 @@ namespace ExactReproduction
         {
             var sinkOptions = new MSSqlServerSinkOptions
             {
-                TableName = "logs",
+                TableName = "Seriloglogs",
                 SchemaName = "dbo",
                 AutoCreateSqlTable = false,
                 BatchPeriod = TimeSpan.FromSeconds(1),
@@ -103,45 +103,6 @@ namespace ExactReproduction
             };
 
             var columnMappings = new ColumnOptions();
-
-            // Clear the default columns
-            columnMappings.Store.Clear();
-            columnMappings.Store.Add(StandardColumn.Id);
-            columnMappings.Store.Add(StandardColumn.TimeStamp);
-
-            // Setup custom column list
-            columnMappings.AdditionalColumns = new Collection<SqlColumn>();
-
-            // Add & configure columns as they exist in the table, going from left to right
-
-            //      Add & configure 'type'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "type", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "Level" });
-
-            //      Add & configure 'logDate'
-            columnMappings.TimeStamp.ConvertToUtc = true;
-            columnMappings.TimeStamp.ColumnName = "logDate";
-            columnMappings.TimeStamp.DataType = SqlDbType.DateTime;
-
-            //      Add & configure 'eventId'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventId", AllowNull = false, DataType = SqlDbType.Int, PropertyName = "LegacyEnventTypeId" });
-
-            //      Add & configure 'title'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "title", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 100, PropertyName = "MessageTemplate" });
-
-            //      Add & configure 'category'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "category", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyEventCategoryName" });
-
-            //      Add & configure 'message'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "message", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 1000, PropertyName = "Message" });
-
-            //      Add & configure 'exceptionText'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = true, DataType = SqlDbType.VarChar, PropertyName = "Properties" });
-
-            //      Add & configure 'computer'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "MachineName" });
-
-            //      Add & configure 'registeredAppId'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyRegisteredAppId" });
 
             return new LoggerConfiguration()
                 .ReadFrom.Configuration(originalConfig)
