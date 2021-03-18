@@ -115,7 +115,7 @@ namespace ExactReproduction
             // Add & configure columns as they exist in the table, going from left to right
 
             //      Add & configure 'type'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "type", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "Level" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "type", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Type });
 
             //      Add & configure 'logDate'
             columnMappings.TimeStamp.ConvertToUtc = true;
@@ -123,32 +123,34 @@ namespace ExactReproduction
             columnMappings.TimeStamp.DataType = SqlDbType.DateTime;
 
             //      Add & configure 'eventId'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventId", AllowNull = false, DataType = SqlDbType.Int, PropertyName = "LegacyEnventTypeId" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventId", AllowNull = false, DataType = SqlDbType.Int, PropertyName = MagicValues.LogPropertyNames.EventId });
 
             //      Add & configure 'title'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "title", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 100, PropertyName = "MessageTemplate" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "title", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 100, PropertyName = MagicValues.LogPropertyNames.Title });
 
             //      Add & configure 'category'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "category", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyEventCategoryName" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "category", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Category });
 
             //      Add & configure 'message'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "message", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 1000, PropertyName = "Message" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "message", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 1000, PropertyName = MagicValues.LogPropertyNames.Message });
 
             //      Add & configure 'exceptionText'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = true, DataType = SqlDbType.VarChar, PropertyName = "Properties" });
+            //columnMappings.Properties.ColumnName = "exceptionText";
+            //columnMappings.Properties.DataType = SqlDbType.VarChar;
+
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = false, DataType = SqlDbType.VarChar, PropertyName = MagicValues.LogPropertyNames.ExceptionText });
 
             //      Add & configure 'computer'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "MachineName" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Computer });
 
             //      Add & configure 'registeredAppId'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = "LegacyRegisteredAppId" });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.RegisteredAppId });
 
             return new LoggerConfiguration()
                 .ReadFrom.Configuration(originalConfig)
                 .Enrich.FromLogContext()
-                .Enrich.WithProperty("LegacyEventTypeId",1)
-                .Enrich.WithProperty("LegacyEventCategoryName","Standard")
-                .Enrich.WithProperty("LegacyRegisteredAppId", originalConfig["DatabaseLoggerIdentifier"])
+                .Enrich.WithProperty(MagicValues.LogPropertyNames.RegisteredAppId, originalConfig["DatabaseLoggerIdentifier"])
+                .Enrich.With<LogTableEnricher>()
                 .WriteTo.Debug()
                 .WriteTo.MSSqlServer(runtimeConfig[MagicValues.LoggingConnectionStringName], sinkOptions: sinkOptions, columnOptions: columnMappings, restrictedToMinimumLevel: LogEventLevel.Verbose)
                 .CreateLogger();
