@@ -8,3 +8,5 @@
 /ExactReproduction.csproj.user
 /.vs/ExactReproduction/DesignTimeBuild/.dtbcache.v2
 /.vs/ExactReproduction/v16/TestStore/0
+/MsSqlServerSink/src/Serilog.Sinks.MSSqlServer/bin/Debug
+/MsSqlServerSink/src/Serilog.Sinks.MSSqlServer/obj

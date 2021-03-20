@@ -138,10 +138,10 @@ namespace ExactReproduction
             //columnMappings.Properties.ColumnName = "exceptionText";
             //columnMappings.Properties.DataType = SqlDbType.VarChar;
 
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = false, DataType = SqlDbType.VarChar, PropertyName = MagicValues.LogPropertyNames.ExceptionText });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = true, DataType = SqlDbType.VarChar, PropertyName = MagicValues.LogPropertyNames.ExceptionText });
 
             //      Add & configure 'computer'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Computer });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Computer });
 
             //      Add & configure 'registeredAppId'
             columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.RegisteredAppId });
