@@ -106,7 +106,6 @@ namespace ExactReproduction
 
             // Clear the default columns
             columnMappings.Store.Clear();
-            columnMappings.Store.Add(StandardColumn.Id);
             columnMappings.Store.Add(StandardColumn.TimeStamp);
 
             // Setup custom column list
@@ -122,8 +121,8 @@ namespace ExactReproduction
             columnMappings.TimeStamp.ColumnName = "logDate";
             columnMappings.TimeStamp.DataType = SqlDbType.DateTime;
 
-            //      Add & configure 'eventId'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventId", AllowNull = false, DataType = SqlDbType.Int, PropertyName = MagicValues.LogPropertyNames.EventId });
+            //      Add & configure 'eventid'
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "eventid", AllowNull = false, DataType = SqlDbType.Int, PropertyName = MagicValues.LogPropertyNames.EventId });
 
             //      Add & configure 'title'
             columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "title", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 100, PropertyName = MagicValues.LogPropertyNames.Title });
@@ -138,10 +137,10 @@ namespace ExactReproduction
             //columnMappings.Properties.ColumnName = "exceptionText";
             //columnMappings.Properties.DataType = SqlDbType.VarChar;
 
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = false, DataType = SqlDbType.VarChar, PropertyName = MagicValues.LogPropertyNames.ExceptionText });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "exceptionText", AllowNull = true, DataType = SqlDbType.VarChar, PropertyName = MagicValues.LogPropertyNames.ExceptionText });
 
             //      Add & configure 'computer'
-            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = false, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Computer });
+            columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "computer", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.Computer });
 
             //      Add & configure 'registeredAppId'
             columnMappings.AdditionalColumns.Add(new SqlColumn { ColumnName = "registeredAppId", AllowNull = true, DataType = SqlDbType.VarChar, DataLength = 50, PropertyName = MagicValues.LogPropertyNames.RegisteredAppId });
